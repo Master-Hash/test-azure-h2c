@@ -9,6 +9,7 @@
 # domain name.
 {
         auto_https off
+        order forward_proxy before file_server
         servers {
                 protocols h1 h2c
         }
@@ -18,6 +19,13 @@
         # Set this path to your site's directory.
         # tls /localhost.direct.crt /localhost.direct.key
         root * /usr/share/caddy
+
+        forward_proxy {
+                basic_auth user pass
+                hide_ip
+                hide_via
+                probe_resistance
+        }
 
         # Enable the static file server.
         file_server
